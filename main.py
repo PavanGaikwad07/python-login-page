@@ -1,37 +1,19 @@
-import tkinter as tk
-from tkinter import messagebox
+import streamlit as st
 
-# Hardcoded login credentials
-USERNAME = "admin"
-PASSWORD = "1234"
+# Dictionary containing email and password pairs
+a = {
+    "FS23AI001@gmail.com": "12345",
+    "FS23AI002@gmail.com": "12345",
+    "FS23AI003@gmail.com": "12345",
+    "FS23AI004@gmail.com": "12345"
+}
 
-# Function to check login
-def check_login():
-    username = username_entry.get()
-    password = password_entry.get()
+email = st.text_input('Enter email - ')
+password = st.text_input('Enter Password - ', type='password')  # Password field
+btn = st.button('Login')
 
-    if username == USERNAME and password == PASSWORD:
-        messagebox.showinfo("Login", "Login Successful")
+if btn:
+    if email in a and password == a[email]:  # Check if email exists as a key and password matches
+        st.success("Logged In ")
     else:
-        messagebox.showerror("Login Failed", "Invalid username or password!")
-
-# Create the main window
-root = tk.Tk()
-root.title("Login Page")
-root.geometry("300x200")
-
-# Username label and entry
-tk.Label(root, text="Username:").pack(pady=5)
-username_entry = tk.Entry(root)
-username_entry.pack(pady=5)
-
-# Password label and entry
-tk.Label(root, text="Password:").pack(pady=5)
-password_entry = tk.Entry(root, show="*")  # Hides password
-password_entry.pack(pady=5)
-
-# Login button
-tk.Button(root, text="Login", command=check_login).pack(pady=10)
-
-# Run the Tkinter event loop
-root.mainloop()
+        st.error('Login Failed')
